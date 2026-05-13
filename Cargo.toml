@@ -23,3 +23,6 @@ path = "src/bin/fm.rs"
 [dependencies]
 ferryman-core = { path = "crates/ferryman-core" }
 env_logger = "0.11"
+
+[dev-dependencies]
+tempfile = "3"

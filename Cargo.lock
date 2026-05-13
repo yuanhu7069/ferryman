@@ -839,6 +839,7 @@ version = "0.1.0"
 dependencies = [
  "env_logger",
  "ferryman-core",
+ "tempfile",
 ]
 
 [[package]]
