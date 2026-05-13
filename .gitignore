@@ -1,0 +1,9 @@
+/target
+**/*.rs.bk
+*.xlsx
+*.parquet
+*.orc
+*.avro
+*.arrow
+*.feather
+.env

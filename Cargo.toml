@@ -1,0 +1,25 @@
+[workspace]
+members = ["crates/ferryman-core"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[package]
+name = "ferryman"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "ferryman"
+path = "src/main.rs"
+
+[[bin]]
+name = "fm"
+path = "src/bin/fm.rs"
+
+[dependencies]
+ferryman-core = { path = "crates/ferryman-core" }
+env_logger = "0.11"

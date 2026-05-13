@@ -1,0 +1,26 @@
+[package]
+name = "ferryman-core"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+arrow = { version = "54" }
+arrow-csv = "54"
+arrow-json = "54"
+parquet = { version = "54", features = ["arrow"] }
+arrow-ipc = "54"
+calamine = "0.26"
+rust_xlsxwriter = "0.80"
+orc-rust = "0.8"
+apache-avro = "0.17"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+chardetng = "0.1"
+indicatif = "0.17"
+log = "0.4"
+env_logger = "0.11"
+flate2 = "1"
+bzip2 = "0.4"
+xz2 = "0.1"
+zstd = "0.13"
