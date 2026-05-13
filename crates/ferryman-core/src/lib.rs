@@ -1,4 +1,5 @@
 pub mod error;
+pub mod schema;
 pub mod traits;
 
 pub fn run_cli() {
