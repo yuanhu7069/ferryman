@@ -11,6 +11,7 @@ use crate::traits::{FormatReader, FormatWriter, RecordBatchStream};
 pub struct CsvReader {
     pub delimiter: u8,
     pub has_header: bool,
+    pub null_values: Vec<String>,
 }
 
 impl Default for CsvReader {
@@ -18,6 +19,7 @@ impl Default for CsvReader {
         CsvReader {
             delimiter: b',',
             has_header: true,
+            null_values: vec![String::new()],
         }
     }
 }

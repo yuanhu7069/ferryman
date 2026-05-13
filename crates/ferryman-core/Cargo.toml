@@ -4,6 +4,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
+clap = { version = "4", features = ["derive"] }
 arrow = { version = "58" }
 arrow-csv = "58"
 arrow-json = "58"
