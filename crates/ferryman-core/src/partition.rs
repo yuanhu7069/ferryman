@@ -52,9 +52,9 @@ fn make_partition_path(base: &Path, index: usize) -> PathBuf {
     let ext = base.extension().map(|e| e.to_string_lossy().to_string());
     let parent = base.parent().unwrap_or_else(|| Path::new("."));
 
-    let new_stem = format!("{}.part{:04}", stem, index);
+    let new_stem = format!("{}_{:06}", stem, index);
     match ext {
-        Some(e) => parent.join(Path::new(&new_stem).with_extension(e)),
+        Some(e) => parent.join(format!("{}.{}", new_stem, e)),
         None => parent.join(new_stem),
     }
 }
@@ -68,8 +68,8 @@ mod tests {
         let base = Path::new("/out/data.parquet");
         let p0 = make_partition_path(base, 0);
         let p1 = make_partition_path(base, 5);
-        assert_eq!(p0, PathBuf::from("/out/data.part0000.parquet"));
-        assert_eq!(p1, PathBuf::from("/out/data.part0005.parquet"));
+        assert_eq!(p0, PathBuf::from("/out/data_000000.parquet"));
+        assert_eq!(p1, PathBuf::from("/out/data_000005.parquet"));
     }
 
     #[test]
