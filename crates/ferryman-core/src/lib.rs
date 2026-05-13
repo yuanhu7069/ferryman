@@ -1,4 +1,5 @@
 pub mod error;
+pub mod formats;
 pub mod registry;
 pub mod schema;
 pub mod traits;
