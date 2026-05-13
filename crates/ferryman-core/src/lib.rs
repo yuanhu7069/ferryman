@@ -1,5 +1,7 @@
+pub mod engine;
 pub mod error;
 pub mod formats;
+pub mod partition;
 pub mod registry;
 pub mod schema;
 pub mod traits;
