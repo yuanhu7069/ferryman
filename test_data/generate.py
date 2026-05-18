@@ -318,7 +318,6 @@ def write_orc(rows, columns, path, n_rows):
 def write_avro(rows, columns, path, n_rows):
     try:
         import fastavro
-        from fastavro.schema import make_avro_record_schema, make_field_schema
     except ImportError:
         print("  SKIP avro: fastavro not installed (pip install fastavro)")
         return
