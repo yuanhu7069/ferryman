@@ -1,20 +1,21 @@
 /target
 **/*.rs.bk
 .env
+.idea/
 
 # Python virtual env
-**/venv/
 **/create_data_venv/
-__pycache__/
+**/venv/
+**/__pycache__/
 
-# Generated test data
-test_data/*.csv
-test_data/*.json
-test_data/*.jsonl
-test_data/*.xlsx
-test_data/*.parquet
-test_data/*.orc
-test_data/*.avro
-test_data/*.arrow
-test_data/*.feather
-test_data/*.ipc
+# Generated test data (anywhere in test_data/)
+test_data/**/*.csv
+test_data/**/*.json
+test_data/**/*.jsonl
+test_data/**/*.xlsx
+test_data/**/*.parquet
+test_data/**/*.orc
+test_data/**/*.avro
+test_data/**/*.arrow
+test_data/**/*.feather
+test_data/**/*.ipc
