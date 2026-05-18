@@ -3,6 +3,9 @@
 .env
 .idea/
 
+# Superpowers generated docs
+docs/superpowers/
+
 # Python virtual env
 **/create_data_venv/
 **/venv/
