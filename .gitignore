@@ -2,6 +2,11 @@
 **/*.rs.bk
 .env
 
+# Python virtual env
+**/venv/
+**/create_data_venv/
+__pycache__/
+
 # Generated test data
 test_data/*.csv
 test_data/*.json

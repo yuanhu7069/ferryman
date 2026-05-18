@@ -38,6 +38,8 @@ impl PartitionWriter {
     pub fn next_file(&mut self) -> PathBuf {
         let path = make_partition_path(&self.output_base, self.partition_index);
         self.partition_index += 1;
+        self.current_rows = 0;
+        self.current_bytes = 0;
         path
     }
 
@@ -94,5 +96,22 @@ mod tests {
         pw.add_batch(0, 500);
         assert!(!pw.should_split(0, 300));
         assert!(pw.should_split(0, 600));
+    }
+
+    #[test]
+    fn test_next_file_resets_counters() {
+        let mut pw = PartitionWriter::new(
+            PathBuf::from("out.csv"),
+            Some(100),
+            None,
+        );
+        pw.add_batch(80, 0);
+        assert!(pw.should_split(21, 0));  // 80+21=101 > 100
+
+        pw.next_file();  // should reset current_rows to 0
+
+        assert!(!pw.should_split(50, 0)); // 0+50 < 100 — reset worked
+        pw.add_batch(50, 0);
+        assert!(!pw.should_split(49, 0)); // 50+49=99 < 100
     }
 }
