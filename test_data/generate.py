@@ -246,7 +246,7 @@ def write_csv(rows, columns, path, n_rows):
     print_size(path, n_rows)
 
 
-def write_json(rows, path, n_rows):
+def write_json(rows, columns, path, n_rows):
     import json
     data = list(rows)
     with open(path, "w", encoding="utf-8") as f:
@@ -254,7 +254,7 @@ def write_json(rows, path, n_rows):
     print_size(path, n_rows)
 
 
-def write_jsonl(rows, path, n_rows):
+def write_jsonl(rows, columns, path, n_rows):
     import json
     with open(path, "w", encoding="utf-8") as f:
         for row in rows:
@@ -263,16 +263,24 @@ def write_jsonl(rows, path, n_rows):
 
 
 def write_parquet(rows, columns, path, n_rows):
-    import pyarrow as pa
-    import pyarrow.parquet as pq
+    try:
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+    except ImportError:
+        print("  SKIP parquet: pyarrow not installed (pip install pyarrow)")
+        return
     table = rows_to_arrow(rows, columns, n_rows)
     pq.write_table(table, path, compression="snappy")
     print_size(path, n_rows)
 
 
 def write_arrow(rows, columns, path, n_rows):
-    import pyarrow as pa
-    import pyarrow.ipc as ipc
+    try:
+        import pyarrow as pa
+        import pyarrow.ipc as ipc
+    except ImportError:
+        print("  SKIP arrow: pyarrow not installed (pip install pyarrow)")
+        return
     table = rows_to_arrow(rows, columns, n_rows)
     with pa.OSFile(str(path), "wb") as f:
         with ipc.new_file(f, table.schema) as writer:
@@ -281,7 +289,11 @@ def write_arrow(rows, columns, path, n_rows):
 
 
 def write_excel(rows, columns, path, n_rows):
-    import openpyxl
+    try:
+        import openpyxl
+    except ImportError:
+        print("  SKIP excel: openpyxl not installed (pip install openpyxl)")
+        return
     wb = openpyxl.Workbook()
     ws = wb.active
     col_names = [c[0] for c in columns]
@@ -293,15 +305,23 @@ def write_excel(rows, columns, path, n_rows):
 
 
 def write_orc(rows, columns, path, n_rows):
-    import pyarrow.orc as orc
+    try:
+        import pyarrow.orc as orc
+    except ImportError:
+        print("  SKIP orc: pyarrow not installed (pip install pyarrow)")
+        return
     table = rows_to_arrow(rows, columns, n_rows)
     orc.write_table(table, path)
     print_size(path, n_rows)
 
 
 def write_avro(rows, columns, path, n_rows):
-    import fastavro
-    from fastavro.schema import make_avro_record_schema, make_field_schema
+    try:
+        import fastavro
+        from fastavro.schema import make_avro_record_schema, make_field_schema
+    except ImportError:
+        print("  SKIP avro: fastavro not installed (pip install fastavro)")
+        return
 
     col_names = [c[0] for c in columns]
     type_map = {
