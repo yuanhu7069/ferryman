@@ -1,9 +1,15 @@
 /target
 **/*.rs.bk
-*.xlsx
-*.parquet
-*.orc
-*.avro
-*.arrow
-*.feather
 .env
+
+# Generated test data
+test_data/*.csv
+test_data/*.json
+test_data/*.jsonl
+test_data/*.xlsx
+test_data/*.parquet
+test_data/*.orc
+test_data/*.avro
+test_data/*.arrow
+test_data/*.feather
+test_data/*.ipc
