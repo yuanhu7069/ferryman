@@ -477,7 +477,7 @@ Examples:
             continue
 
         path = f"{prefix}.{fmt}"
-        if fmt == "xlsx":
+        if fmt in ("excel", "xlsx"):
             path = f"{prefix}.xlsx"
         elif fmt == "feather":
             path = f"{prefix}.feather"
