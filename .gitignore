@@ -19,3 +19,4 @@ test_data/**/*.avro
 test_data/**/*.arrow
 test_data/**/*.feather
 test_data/**/*.ipc
+**/*.excel

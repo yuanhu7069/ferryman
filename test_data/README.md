@@ -3,14 +3,15 @@
 ## 安装
 
 ```bash
-pip install pyarrow openpyxl fastavro
+cd test_data
+uv sync
 ```
 
 ## 快速开始
 
 ```bash
 # 生成 1 万行 CSV
-python3 test_data/generate.py --fmt csv --rows 10000
+uv run python generate.py --fmt csv --rows 10000
 
 # 查看生成的文件
 ls -lh test_data/
@@ -22,7 +23,7 @@ ls -lh test_data/
 
 ```bash
 # 生成小文件，测试全部格式
-python3 test_data/generate.py --fmt all --rows 100 --preset simple
+uv run python generate.py --fmt all --rows 100 --preset simple
 
 # 用 ferryman 互转验证
 fm convert -f csv    -t parquet test_data/data.csv    test_data/out.parquet
@@ -37,7 +38,7 @@ fm convert -f excel  -t csv     test_data/data.xlsx   test_data/out.csv
 
 ```bash
 # 生成 100 万行 Parquet
-python3 test_data/generate.py --fmt parquet --rows 1000000 --preset wide
+uv run python generate.py --fmt parquet --rows 1000000 --preset wide
 # 转 CSV，测试流式 + 分片
 fm convert -f parquet -t csv test_data/data.parquet test_data/out.csv \
   --mode stream --partition-rows 200000
@@ -47,14 +48,14 @@ fm convert -f parquet -t csv test_data/data.parquet test_data/out.csv \
 
 ```bash
 # JSON 嵌套对象 → CSV
-python3 test_data/generate.py --fmt json --rows 500 --preset nested
+uv run python generate.py --fmt json --rows 500 --preset nested
 fm convert -f json -t csv test_data/data.json test_data/out.csv
 ```
 
 ### 4. NULL 值处理
 
 ```bash
-python3 test_data/generate.py --fmt csv --rows 1000 --preset nulls
+uv run python generate.py --fmt csv --rows 1000 --preset nulls
 fm convert -f csv -t parquet test_data/data.csv test_data/out.parquet \
   --null-values "NA,NULL,None"
 ```
@@ -62,7 +63,7 @@ fm convert -f csv -t parquet test_data/data.csv test_data/out.parquet \
 ### 5. 压缩测试
 
 ```bash
-python3 test_data/generate.py --fmt csv --rows 100000 --preset wide
+uv run python generate.py --fmt csv --rows 100000 --preset wide
 # 输出 gzip 压缩
 fm convert -f csv -t json test_data/data.csv test_data/out.json --compress gzip
 # 输出 zstd 压缩的 Parquet
@@ -72,7 +73,7 @@ fm convert -f csv -t parquet test_data/data.csv test_data/out.parquet --compress
 ### 6. Schema 测试
 
 ```bash
-python3 test_data/generate.py --fmt csv --rows 1000 --preset types
+uv run python generate.py --fmt csv --rows 1000 --preset types
 # 生成 schema 文件，手动指定类型
 cat > test_data/my_schema.json << 'EOF'
 {"columns": [{"name":"col_int64","type":"Int64"},{"name":"col_str","type":"Utf8"}]}
@@ -83,7 +84,7 @@ fm convert -f csv -t parquet test_data/data.csv test_data/out.parquet --schema t
 ### 7. ORC 读取测试（写暂不支持）
 
 ```bash
-python3 test_data/generate.py --fmt orc --rows 1000
+uv run python generate.py --fmt orc --rows 1000
 fm convert -f orc -t csv test_data/data.orc test_data/out.csv     # ✅
 fm convert -f csv -t orc test_data/data.csv test_data/out.orc     # ❌ 报错提示
 ```
@@ -91,14 +92,14 @@ fm convert -f csv -t orc test_data/data.csv test_data/out.orc     # ❌ 报错�
 ### 8. 编码测试
 
 ```bash
-python3 test_data/generate.py --fmt csv --rows 1000 --preset simple
+uv run python generate.py --fmt csv --rows 1000 --preset simple
 fm convert -f csv -t json test_data/data.csv test_data/out.json --encoding utf-8
 ```
 
 ## 命令行参考
 
 ```
-python3 test_data/generate.py [OPTIONS]
+uv run python generate.py [OPTIONS]
 
   --fmt FORMAT      输出格式：csv, json, jsonl, parquet, arrow, excel, orc, avro
                     多个用逗号分隔，或 all 生成全部 (默认: csv)
